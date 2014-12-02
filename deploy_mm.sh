@@ -24,38 +24,18 @@ wget http://central.maven.org/maven2/org/elasticsearch/elasticsearch-hadoop/2.1.
 # get the code
 git clone https://github.com/sloanahrens/es-spark-matmult.git
 
-python es-spark-matmult/random_mm.py
+# install pip and the python ES client
+sudo yum -y install python-setuptools
+sudo easy_install pip
+sudo pip install elasticsearch
+
+# run the script
+python ~/es-spark-matmult/random_mm.py
 
 
 exit
 
 
-
-
-
-# back on local VM
-export HOST=ec2-54-69-163-110.us-west-2.compute.amazonaws.com
-
-export CODEFILE=~/local_code/qbox-blog-code/ch_3_deploy_spark_es/es_spark_cloud.py
-
-# # [edit code file if needed]
-# # test code file locally
-# export JARFILE=~/spark/jars/elasticsearch-hadoop-2.1.0.Beta2.jar
-# ./spark/bin/spark-submit --master local[4] --jars $JARFILE $CODEFILE
-# # delete and rebuild index
-# python build_index_qbox.py
-
-# upload code file to master node
-scp -i ~/.ssh/id_rsa.pub $CODEFILE root@$HOST:spark/code
-
-# log back into cluster master
-# ./spark/ec2/spark-ec2 -k ubuntu-spark -i ~/.ssh/id_rsa.pub -r $REGION login $CLUSTER
-./spark/ec2/spark-ec2 -k ubuntu12 -i ~/.ssh/id_rsa.pub -r $REGION login $CLUSTER
-
-# run our script on master
-./spark/bin/spark-submit --master local --jars spark/jars/elasticsearch-hadoop-2.1.0.Beta2.jar spark/code/es_spark_cloud.py
-# log out
-exit
 
 # terminate cluster
 # ./spark/ec2/spark-ec2 -k ubuntu-spark -i ~/.ssh/id_rsa.pub -r $REGION destroy $CLUSTER
