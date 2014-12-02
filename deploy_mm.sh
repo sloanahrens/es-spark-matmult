@@ -20,9 +20,18 @@ cd ~
 mkdir spark/jars; cd spark/jars
 # get elasticsearch-hadoop jar
 wget http://central.maven.org/maven2/org/elasticsearch/elasticsearch-hadoop/2.1.0.Beta2/elasticsearch-hadoop-2.1.0.Beta2.jar
-# make code directory
-cd ..; mkdir code
+
+# get the code
+git clone https://github.com/sloanahrens/es-spark-matmult.git
+
+python es-spark-matmult/random_mm.py
+
+
 exit
+
+
+
+
 
 # back on local VM
 export HOST=ec2-54-69-163-110.us-west-2.compute.amazonaws.com
