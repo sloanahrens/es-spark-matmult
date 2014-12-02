@@ -15,8 +15,6 @@ ES_HOST = {
     "port" : 80 
 }
 
-NUM_TASKS = 20
-
 if __name__ == "__main__":
 
     start_time = time()
@@ -132,9 +130,9 @@ if __name__ == "__main__":
         return [item for item in partial_sums if item[1] != 0]
 
 
-    partial_results = mapped_union.groupByKey(NUM_TASKS).flatMap(partialSums)
+    partial_results = mapped_union.groupByKey().flatMap(partialSums)
 
-    matrix_C = partial_results.reduceByKey(lambda a,b: a+b, NUM_TASKS).filter(lambda item: item[1] != 0)
+    matrix_C = partial_results.reduceByKey(lambda a,b: a+b).filter(lambda item: item[1] != 0)
 
     result_docs = matrix_C.map(lambda item: ('%s-%s' % (item[0][0],item[0][1]), {
         'row': item[0][0],
@@ -165,7 +163,7 @@ if __name__ == "__main__":
     matA_density = matA_count / float(N**2)
     matA_norm = sqrt(mat_A_rdd.map(lambda item: item[1]['val']**2).reduce(lambda a,b: a+b))
 
-    mapped_grouped = mapped_union.groupByKey(NUM_TASKS)
+    mapped_grouped = mapped_union.groupByKey()
     mapped_group_count_average = mapped_grouped.map(lambda i: len(i[1])).reduce(lambda a,b: a+b) / mapped_grouped.count()
 
 
