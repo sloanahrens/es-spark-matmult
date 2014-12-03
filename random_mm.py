@@ -118,7 +118,7 @@ if __name__ == '__main__':
         print("--- %s seconds ---" % elapsed)
 
         # system("~/spark/bin/spark-submit --master local[4] --jars ~/spark/jars/elasticsearch-hadoop-2.1.0.Beta2.jar ~/local_code/es-spark-matmult/es_spark_mm.py")
-        system("~/spark/bin/spark-submit --master spark://54.69.207.224:7077 --jars ~/spark/jars/elasticsearch-hadoop-2.1.0.Beta2.jar ~/es-spark-matmult/es_spark_mm.py")
+        system("~/spark/bin/spark-submit --master spark://ec2-54-69-207-224.us-west-2.compute.amazonaws.com:7077 --jars ~/spark/jars/elasticsearch-hadoop-2.1.0.Beta2.jar ~/es-spark-matmult/es_spark_mm.py")
 
 
 
