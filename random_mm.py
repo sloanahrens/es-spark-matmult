@@ -73,7 +73,7 @@ from os import system
 if __name__ == '__main__':
 
     val_max = 10
-    shards = 5
+    shards = 3
 
     seed(time())
 
@@ -117,8 +117,8 @@ if __name__ == '__main__':
         elapsed = round(time() - start_time, 2)
         print("--- %s seconds ---" % elapsed)
 
-        # system("~/spark/bin/spark-submit --master local[4] --jars ~/spark/jars/elasticsearch-hadoop-2.1.0.Beta2.jar /media/sf_code/projects/matrix_mult/es_spark_mm.py")
-        system("~/spark/bin/spark-submit --master local --jars ~/spark/jars/elasticsearch-hadoop-2.1.0.Beta2.jar ~/es-spark-matmult/es_spark_mm.py")
+        system("~/spark/bin/spark-submit --master local[3] --jars ~/spark/jars/elasticsearch-hadoop-2.1.0.Beta2.jar ~/local_code/es-spark-matmult/es_spark_mm.py")
+        # system("~/spark/bin/spark-submit --master local --jars ~/spark/jars/elasticsearch-hadoop-2.1.0.Beta2.jar ~/es-spark-matmult/es_spark_mm.py")
 
 
 
