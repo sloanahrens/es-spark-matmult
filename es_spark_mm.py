@@ -44,7 +44,7 @@ if __name__ == "__main__":
     } 
     
 
-    es_conf["es.resource"] = "matrix-a1/elem"
+    es_conf["es.resource"] = "matrix-a/elem"
     mat_A_rdd = sc.newAPIHadoopRDD(
         inputFormatClass="org.elasticsearch.hadoop.mr.EsInputFormat",
         keyClass="org.apache.hadoop.io.NullWritable", 
@@ -52,7 +52,7 @@ if __name__ == "__main__":
         conf=es_conf).cache()
     # mat_A_rdd.cache()
 
-    es_conf["es.resource"] = "matrix-b1/elem"
+    es_conf["es.resource"] = "matrix-b/elem"
     mat_B_rdd = sc.newAPIHadoopRDD(
         inputFormatClass="org.elasticsearch.hadoop.mr.EsInputFormat",
         keyClass="org.apache.hadoop.io.NullWritable", 
@@ -139,7 +139,7 @@ if __name__ == "__main__":
         'val': item[1]
     })).cache()
 
-    es_conf["es.resource"] = "matrix-c1/elem"
+    es_conf["es.resource"] = "matrix-c/elem"
     result_docs.saveAsNewAPIHadoopFile(
         path='-', 
         outputFormatClass="org.elasticsearch.hadoop.mr.EsOutputFormat",
