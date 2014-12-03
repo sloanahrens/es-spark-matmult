@@ -25,8 +25,7 @@ if __name__ == "__main__":
 
     N = res['hits']['hits'][0]['_source']['n']
 
-    conf = SparkConf().setAppName("ESSparkMM")
-    sc = SparkContext(conf=conf)
+    sc = SparkContext(appName="ESSparkMM")
 
     # es_conf = {
     #     "es.nodes" : "localhost",
@@ -45,7 +44,7 @@ if __name__ == "__main__":
     } 
     
 
-    es_conf["es.resource"] = "matrix-a/elem"
+    es_conf["es.resource"] = "matrix-a1/elem"
     mat_A_rdd = sc.newAPIHadoopRDD(
         inputFormatClass="org.elasticsearch.hadoop.mr.EsInputFormat",
         keyClass="org.apache.hadoop.io.NullWritable", 
@@ -53,7 +52,7 @@ if __name__ == "__main__":
         conf=es_conf)
     mat_A_rdd.cache()
 
-    es_conf["es.resource"] = "matrix-b/elem"
+    es_conf["es.resource"] = "matrix-b1/elem"
     mat_B_rdd = sc.newAPIHadoopRDD(
         inputFormatClass="org.elasticsearch.hadoop.mr.EsInputFormat",
         keyClass="org.apache.hadoop.io.NullWritable", 
@@ -140,7 +139,7 @@ if __name__ == "__main__":
         'val': item[1]
     }))
 
-    es_conf["es.resource"] = "matrix-c/elem"
+    es_conf["es.resource"] = "matrix-c1/elem"
     result_docs.saveAsNewAPIHadoopFile(
         path='-', 
         outputFormatClass="org.elasticsearch.hadoop.mr.EsOutputFormat",
@@ -166,6 +165,7 @@ if __name__ == "__main__":
     mapped_grouped = mapped_union.groupByKey()
     mapped_group_count_average = mapped_grouped.map(lambda i: len(i[1])).reduce(lambda a,b: a+b) / mapped_grouped.count()
 
+    sc.stop()
 
     # matA = mat_A_rdd.map(lambda i: ((i[1]['row'],i[1]['col']), i[1]['val'])).sortByKey(True).collect()
     # matB = mat_B_rdd.map(lambda i: ((i[1]['row'],i[1]['col']), i[1]['val'])).sortByKey(True).collect()

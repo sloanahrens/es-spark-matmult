@@ -73,7 +73,7 @@ from os import system
 if __name__ == '__main__':
 
     val_max = 10
-    shards = 3
+    shards = 5
 
     seed(time())
 
@@ -91,14 +91,14 @@ if __name__ == '__main__':
 
         print('\nN = %s\nD* = %s' % (N, D))
 
-        createMatrixIndex(es_client, 'matrix-c', shards)
+        createMatrixIndex(es_client, 'matrix-c1', shards)
 
-        createRandomSparseMatrixES(es_client, 'matrix-a', N, val_max, shards, D)
+        createRandomSparseMatrixES(es_client, 'matrix-a1', N, val_max, shards, D)
 
-        createRandomSparseMatrixES(es_client, 'matrix-b', N, val_max, shards, D)
+        createRandomSparseMatrixES(es_client, 'matrix-b1', N, val_max, shards, D)
 
-        matA_count = es_client.count(index='matrix-a', doc_type='elem')['count']
-        matB_count = es_client.count(index='matrix-b', doc_type='elem')['count']
+        matA_count = es_client.count(index='matrix-a1', doc_type='elem')['count']
+        matB_count = es_client.count(index='matrix-b1', doc_type='elem')['count']
 
         D = (matA_count + matB_count) / float(2 * N**2)
 
@@ -117,8 +117,8 @@ if __name__ == '__main__':
         elapsed = round(time() - start_time, 2)
         print("--- %s seconds ---" % elapsed)
 
-        # system("~/spark/bin/spark-submit --master local[3] --jars ~/spark/jars/elasticsearch-hadoop-2.1.0.Beta2.jar ~/local_code/es-spark-matmult/es_spark_mm.py")
-        system("~/spark/bin/spark-submit --master local --jars ~/spark/jars/elasticsearch-hadoop-2.1.0.Beta2.jar ~/es-spark-matmult/es_spark_mm.py")
+        system("~/spark/bin/spark-submit --master local[4] --jars ~/spark/jars/elasticsearch-hadoop-2.1.0.Beta2.jar ~/local_code/es-spark-matmult/es_spark_mm.py")
+        # system("~/spark/bin/spark-submit --master local --jars ~/spark/jars/elasticsearch-hadoop-2.1.0.Beta2.jar ~/es-spark-matmult/es_spark_mm.py")
 
 
 
