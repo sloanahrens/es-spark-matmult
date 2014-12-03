@@ -79,10 +79,10 @@ if __name__ == '__main__':
 
     es_client = Elasticsearch(hosts = [ES_HOST])
 
-    n_vals = sorted( [10**(p+2) for p in xrange(6)] + [3*10**(p+2) for p in xrange(6)] )
+    n_vals = sorted( [10**(p+2) for p in xrange(7)] + [3*10**(p+2) for p in xrange(7)] )
 
     #for N in [3*10**6, 10**7, 3*10**7, 10**8, 3*10**8]:
-    for N in n_vals:
+    for N in [3*10**8]:
 
         start_time = time()
 
@@ -117,8 +117,11 @@ if __name__ == '__main__':
         elapsed = round(time() - start_time, 2)
         print("--- %s seconds ---" % elapsed)
 
-        # system("~/spark/bin/spark-submit --master local[4] --jars ~/spark/jars/elasticsearch-hadoop-2.1.0.Beta2.jar ~/local_code/es-spark-matmult/es_spark_mm.py")
-        system("~/spark/bin/spark-submit --master spark://ec2-54-69-207-224.us-west-2.compute.amazonaws.com:7077 --jars ~/spark/jars/elasticsearch-hadoop-2.1.0.Beta2.jar ~/es-spark-matmult/es_spark_mm.py")
+        system("~/spark/bin/spark-submit --master local[4] --jars ~/spark/jars/elasticsearch-hadoop-2.1.0.Beta2.jar ~/local_code/es-spark-matmult/es_spark_mm.py")
+        # master_path = 'spark://ec2-54-69-207-224.us-west-2.compute.amazonaws.com:7077'
+        # jar_path = '~/spark/jars/elasticsearch-hadoop-2.1.0.Beta2.jar'
+        # code_path = '~/es-spark-matmult/es_spark_mm.py'
+        # system("~/spark/bin/spark-submit --master %s --jars %s %s" % (master_path, jar_path, code_path))
 
 
 

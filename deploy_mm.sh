@@ -1,8 +1,9 @@
 
 # set environment variables for use with Spark deployment script:
 export CLUSTER=sparkcluster
-export INSTANCE=t2.medium
+export INSTANCE=t2.small
 export REGION=us-west-2
+export NODES=5
 export AWS_ACCESS_KEY_ID=<YOUR_ACCESS_KEY>
 export AWS_SECRET_ACCESS_KEY=<YOUR_SECRET_ACCESS_KEY>
 
@@ -10,7 +11,7 @@ cd ~
 
 # launch a cluster with 2 worker nodes
 # ./spark/ec2/spark-ec2 -k ubuntu-spark -i ~/.ssh/id_rsa.pub -s 2 -r $REGION -t $INSTANCE launch $CLUSTER
-./spark/ec2/spark-ec2 -k ubuntu12 -i ~/.ssh/id_rsa.pub -s 5 -r $REGION -t $INSTANCE launch $CLUSTER
+./spark/ec2/spark-ec2 -k ubuntu12 -i ~/.ssh/id_rsa.pub -s $NODES -r $REGION -t $INSTANCE launch $CLUSTER
 
 # log in to cluster
 # ./spark/ec2/spark-ec2 -k ubuntu-spark -i ~/.ssh/id_rsa.pub -r $REGION login $CLUSTER
