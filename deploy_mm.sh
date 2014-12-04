@@ -1,7 +1,7 @@
 
 # set environment variables for use with Spark deployment script:
 export CLUSTER=sparkcluster
-export INSTANCE=t2.small
+export INSTANCE=t2.medium
 export REGION=us-west-2
 export NODES=5
 export AWS_ACCESS_KEY_ID=<YOUR_ACCESS_KEY>
